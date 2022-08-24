@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS book (
+    id serial PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    writer VARCHAR(30) NOT NULL,
+    publisher VARCHAR(30) NOT NULL,
+    create_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
