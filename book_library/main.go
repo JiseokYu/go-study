@@ -51,10 +51,11 @@ func main() {
 			ctx.JSON(http.StatusOK, book)
 		})
 
-		bookPath.GET("/:id", func(ctx *gin.Context) {
-			id := ctx.Param("id")
-			res, find := BookMap[id]
-			if !find {
+		bookPath.GET("/", func(ctx *gin.Context) {
+			// id := ctx.Param("id")
+			// res, find := BookMap[id]
+			res, err := db.Query("SELECT * FROM book")
+			if err != nil {
 				ctx.JSON(http.StatusBadRequest, gin.H{
 					"msg": "잘못입력하셨습니다.",
 				})
