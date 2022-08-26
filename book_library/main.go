@@ -5,17 +5,21 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 
 	"database/sql"
 
 	_ "github.com/lib/pq"
+
+	"github.com/joho/godotenv"
 )
 
 var BookMap = make(map[string]Book)
 
 func main() {
+	godotenv.Load(".env")
 	db := getDb()
 	defer db.Close()
 
@@ -64,7 +68,7 @@ func main() {
 }
 
 func getDb() *sql.DB {
-	db, err := sql.Open("postgres", "user=qwer password=qwer1234 host=postgres port=5432 dbname=book sslmode=disable")
+	db, err := sql.Open("postgres", os.Getenv("DB_NAME"))
 	if err != nil {
 		fmt.Println(err)
 	}
